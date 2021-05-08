@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddViewController: UIViewController, UITextFieldDelegate {
+class AddViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var titleText: UITextField!
     @IBOutlet weak var pagesText: UITextField!
@@ -45,6 +45,18 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        print(text)
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }else{
+            return true
+        }
+            
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -52,6 +64,7 @@ class AddViewController: UIViewController, UITextFieldDelegate {
         titleText.delegate = self
         pagesText.delegate = self
         authorText.delegate = self
+        descriptionText.delegate = self
         
         if editBook {
             self.title = "Edit Book"
